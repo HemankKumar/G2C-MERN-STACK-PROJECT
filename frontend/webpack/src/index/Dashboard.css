@@ -1,0 +1,48 @@
+/* Navbar Styles */
+.navbar {
+    background-color:#002244;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center;
+    
+  }
+
+ 
+  
+  /* Spacer Styles */
+  .spacer {
+    flex: 1; /* This will push the buttons to the right */
+  }
+  
+  /* Button Styles */
+  .btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 20px; /* Adjust the margin between buttons */
+  }
+
+  .btn:hover {background-color:#B0C4DE}
+
+  .btn:active {
+    background-color:#B0C4DE;
+    box-shadow: 0 2px #666;
+    transform: translateY(1px);
+  }
+  
+  /* Adjustments for smaller screens */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+    }
+    .btn {
+      margin-top: 10px;
+      margin-left: 0;
+    }
+  }
+  
