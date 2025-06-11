@@ -1,0 +1,1 @@
+Developed a scalable React-based platform connecting local growers directly with consumers to buy farm products like milk, curd, and ghee. Implemented real-time dashboards and live product updates for seamless transactions. Improved grower profits by 25% by eliminating intermediaries and optimizing supply chain efficiency.
