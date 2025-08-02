@@ -260,31 +260,45 @@ function doDeleteProduct(req, resp) {
 //=========================================Consumer========================================================================================
 
 // profile data saving(consumer)
-function Dosaveprofiles(req,resp){
-    let filename="nopic.jpg"
+function Dosaveprofiles(req, resp) {
+    let filename = "nopic.jpg";
 
-    if(req.files!=null){
-        filename=req.files.pic.name
-        var filepath=path.join(__dirname,"..","uploads",filename)
-        req.files.pic.mv(filepath)
-
+    if (req.files != null) {
+        filename = req.files.pic.name;
+        var filepath = path.join(__dirname, "..", "uploads", filename);
+        req.files.pic.mv(filepath);
     }
 
-    req.body.picpath=filename
+    req.body.picpath = filename;
 
-    const doc=new getprofileconsumers(req.body)
-    doc.save()
+    // Check if email already exists
+    getprofileconsumers.findOne({ email: req.body.email })
+        .then((existing) => {
+            if (existing) {
+                return resp.status(409).json({
+                    status: false,
+                    msg: "Email already exists",
+                    err: "Duplicate email"
+                });
+            }
 
-    .then((retDoc)=>{
-        resp.set("json")
-        resp.json({status:true,rec:retDoc})
-    })
-
-    .catch((err)=>{
-        resp.json({status:false,msg:"duplicate entry",err:err.message,req:req.body})
-    })
-    
+            // If not existing, proceed to save
+            const doc = new getprofileconsumers(req.body);
+            return doc.save()
+                .then((retDoc) => {
+                    resp.set("json");
+                    resp.json({ status: true, rec: retDoc });
+                });
+        })
+        .catch((err) => {
+            resp.status(500).json({
+                status: false,
+                msg: "Internal server error",
+                err: err.message
+            });
+        });
 }
+
 
 //profile data fetching/searching(consumer)
 function dosearchprofiles(req, resp)
@@ -360,7 +374,14 @@ function Doupdateprofiles(req, resp) {
             })
         })
 
+
+
 }
+
+
+
+
+
 
 
 

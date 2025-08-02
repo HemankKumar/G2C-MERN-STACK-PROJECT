@@ -18,6 +18,7 @@ const{dosearchprofiles}=require("../controllers/controller")
 const{Doupdateprofiles}=require("../controllers/controller")
 
 
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -49,5 +50,7 @@ app.post("/saveprofileconsumer",Dosaveprofiles)
 app.get("/fetch-profile-consumer",dosearchprofiles)
 
 app.post("/update-profile-consumer",Doupdateprofiles)
+
+
 
 module.exports=app;

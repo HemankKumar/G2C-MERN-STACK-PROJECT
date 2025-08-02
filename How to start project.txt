@@ -1,0 +1,15 @@
+Split the terminals first then do below steps:
+
+1 Terminal
+go to front end use - cd frontend
+go into webpack use - cd webpack
+use command - npm run start
+
+2nd Terminal
+go to backend - cd backend
+use command - nodemon .\mongo-server.s
+
+[[redirects]]
+ from = "/*"
+ to = "/"
+ status = 200

@@ -72,7 +72,7 @@ function getAvail(){
 function getprofileconsumer(){
     let Profile=new mongoose.Schema(
         {
-            email:String,
+            email: { type: String, required: true, unique: true },
             firstname:String,
             lastname:String,
             address:String,
