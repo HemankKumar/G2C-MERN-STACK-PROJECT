@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import axios from "axios";
+import './buyitem.css';
 
 export default function Findss(){
 
@@ -51,17 +52,36 @@ export default function Findss(){
         setSelProd(event.target.value)
         setObj({...obj,"selprod":event.target.value})
 
+        const selectedProduct = event.target.value;
+        setSelProd(selectedProduct);
+       setObj(prev => {
+        const updatedObj = { ...prev, selprod: selectedProduct };
+        return updatedObj;
+        });
+        setTimeout(() => doUpdateCity(), 0);
+
     }
 
-    async function doUpdateCity(){
-        const url="http://localhost:2010/save/save-avail-product";
+   async function doUpdateCity() {
+    try {
+        const url = "http://localhost:2010/save/fetch-cities"; // Make sure this is your actual endpoint
+        const { category, selprod } = obj;
 
-        const serverMsg= await axios.post(url,obj);
+        if (!category || !selprod) return;
 
-        if(serverMsg.data.result.length!=0){
-            
+        const res = await axios.post(url, { category, product: selprod });
+        
+        if (res.data && res.data.city) {
+            setCity(res.data.city); // expects server to return { cities: [...] }
+        } else {
+            setCity([]);
         }
+    } catch (error) {
+        console.error("Error fetching cities:", error);
+        setCity([]);
     }
+}
+
 
 
 
@@ -95,14 +115,14 @@ export default function Findss(){
                 </div>
                 <div className="basis-1/3 mr-8">
                     <label htmlFor="city" className="block mb-2 text-base font-serif font-medium text-gray-900">city</label>
-                        <select name="city" id="city" onChange={doUpdate} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-100 dark:text-black dark:focus:ring-blue-300 dark:focus:border-blue-500" placeholder="" required>    
+                        <select name="city" id="city" onChange={doUpdateCity} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-100 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-100 dark:text-black dark:focus:ring-blue-300 dark:focus:border-blue-500" placeholder="" required>    
                             <option defaultValue={"Choose"}>Choose..</option>          {/*Here onChange={doUpdate} only value of selected city will get updated in obj state*/}
                             {city.map((str,index)=>{
                                 return <option key={index} value={str}>{str}</option>
                             })}
                         </select>
                 </div>
-                {/* <button type="button" onClick={doFindGrower} className="ml-[600px] mb-[30px] w-[150px] mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search&nbsp;Grower</button> */}
+                {/*<button type="button" onClick={doFindGrower} className="ml-[600px] mb-[30px] w-[150px] mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search&nbsp;Grower</button>*/ }
                 </div> 
                 : null }
              

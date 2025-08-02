@@ -1,85 +1,96 @@
-import React from 'react'
-import "./dash.css"
+import React from 'react';
+import "./dash.css";
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'flowbite-react';
 
+function Dash() {
+  let navigate = useNavigate();
 
+  function openprofile() {
+    navigate("/open_grower_profile");
+  }
 
+  function openavailitem() {
+    navigate("/open_avail_item");
+  }
 
-function Dash(){
-    let navigate=useNavigate();
+  function openitemmang() {
+    navigate("/open_item_manager");
+  }
 
-    function openprofile(){
-        navigate("/open_grower_profile")
-    }
+  function logout() { 
+    navigate('/openmaindashboard');
+  }
 
-    function openavailitem(){
-        navigate("/open_avail_item")
-    }
+  return (
+    <>
+      {/* Top Header */}
+      <div className="bg-gradient-to-r from-indigo-700 to-indigo-500 h-16 flex justify-end items-center shadow-md px-4">
+        <button
+          type="button"
+          className="rounded-md bg-indigo-800 w-24 h-10 text-sm font-semibold text-white shadow hover:bg-indigo-600 transition duration-200"
+          onClick={logout}
+        >
+          Logout
+        </button>
+      </div>
 
-    function openitemmang(){
-        navigate("/open_item_manager")
-    }
-   
+      {/* Dashboard Background */}
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-100 to-white py-12 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-bold text-center text-indigo-800 mb-12">Grower Dashboard</h1>
 
-    return(
-        <>
-        <div className='bg-indigo-600 h-16 flex justify-end'>
-        <button type="button" className="rounded-md bg-indigo-800 w-20 h-10 m-4 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                  Logout
-                 </button>
-        </div>
-        <p>Grower</p>
-
-        <div className='flex justify-center  m-12 gap-12'>
-
-        <Card
-            className="w-72 h-96 m-10"
-            
+        <div className="flex flex-wrap justify-center gap-10">
+          {/* Profile Card */}
+          <Card
+            className="w-72 h-96 transform transition duration-300 hover:scale-105 shadow-lg bg-white rounded-xl"
             imgSrc="pics/profile-grower.png"
-            >
-                  <center className='mt-8'>               
-                  <button type="button" onClick={openprofile} className="rounded-md bg-indigo-600 px-3 py-2 w-20 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                  Profile
-                 </button>
-                    </center>
+          >
+            <div className="text-center mt-8">
+              <button
+                type="button"
+                onClick={openprofile}
+                className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200"
+              >
+                Profile
+              </button>
+            </div>
+          </Card>
 
-
-        </Card>
-
-        <Card
-            className="max-w-sm w-72 h-96 m-10"
-            
+          {/* Avail Item Card */}
+          <Card
+            className="w-72 h-96 transform transition duration-300 hover:scale-105 shadow-lg bg-white rounded-xl"
             imgSrc="pics/avail-items.png"
-            >
+          >
+            <div className="text-center mt-8">
+              <button
+                type="button"
+                onClick={openavailitem}
+                className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200"
+              >
+                Avail Item
+              </button>
+            </div>
+          </Card>
 
-                <center className='mt-8'>               
-                  <button type="button" onClick={openavailitem} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                  Avail Item
-                  </button>
-                </center>
-            
-        </Card>
-
-        <Card
-            className="max-w-sm w-72 h-96 m-10"
-           
+          {/* Item Manager Card */}
+          <Card
+            className="w-72 h-96 transform transition duration-300 hover:scale-105 shadow-lg bg-white rounded-xl"
             imgSrc="pics/item-manager.gif"
-            >
-
-                <center className='mt-8'>               
-                  <button type="button" onClick={openitemmang} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                  Item Manager
-                  </button>
-                </center>
-          
-        </Card>
-
+          >
+            <div className="text-center mt-8">
+              <button
+                type="button"
+                onClick={openitemmang}
+                className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-200"
+              >
+                Item Manager
+              </button>
+            </div>
+          </Card>
         </div>
-
-       
-        </>
-    )
+      </div>
+    </>
+  );
 }
 
 export default Dash;
